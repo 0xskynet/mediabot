@@ -12,19 +12,26 @@ module.exports.process = function process(intentData, cb) {
     }
 */
     var movieName = intentData.movie[0].value;
+    // encodeURI
+    // decodeURI
+    // what is the incpetion movie?
     // http://www.omdbapi.com/?t=inception&y=&plot=short&r=json
-    var urlGet = "http://www.omdbapi.com/?t="+ movieName +"&y=&plot=short&r=json";
-      request.get(``, (err, res) => {
-        if(err || res.statusCode != 200 || !res.body.result) {
+    var urlGet = "http://www.omdbapi.com/?t="+ encodeURI(movieName) +"&y=&plot=short&r=json";
+      request.get(urlGet, (err, res) => {
+          console.log(res.statusCode);
+        if(err || res.statusCode != 200) {
             //console.log(err);
             //console.log(res.body);
-           return cb(false, `Problem getting information for ${movieName}`);
+           //return cb(false, `Sorry, It seems there is some problem in the network connection.`);
         }
-        console.log(res.body.Title);
+        console.log("Response" + res.body.Response);
         if(res.body.Response == "True") {
-            return cb(false, movieName);
+            var movi = res.body;
+            var info = `${movi.Title} is ${movi.Year}, ${movi.Genre} movie which was relased in ${movi.Released}. It is written by ${movi.Writer} and directed by ${movi.Director}. Following actors are in the movie; ${movi.Actors}. It was relased in ${movi.Language}. The plot of the movie is : ${movi.Plot}`;
+
+            return cb(false, info);
         } else {
-            return cb(false, `Can't find information for ${movieName}`);
+            return cb(false, `Sorry, I can not find information about what you asked.`);
         }
     });
   
