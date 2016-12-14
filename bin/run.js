@@ -5,10 +5,10 @@ const service = require("../server/service");
 const http = require("http");
 const server = http.createServer(service);
 
-const witToken = 'DIULG2EX2WND7WZDWZTMJNMTVN52DZJO'
+const witToken = 'abc'
 const witClient = require('../server/witClient')(witToken);
 
-const slackToken = 'xoxb-106871034272-TygHffLJ2tQINYY27Bj9uRsy';
+const slackToken = 'def';
 const slackLogLevel = 'verbose';
 
 const rtm = slackClient.init(slackToken, slackLogLevel, witClient);
@@ -19,3 +19,9 @@ slackClient.addAuthenticatedHandler(rtm, () => server.listen(4000));
 server.on('listening', function() {
     console.log(`FRANK is listening on ${server.address().port} in ${service.get('env')} mode. `);
 });
+
+/*
+https://slack-project.slack.com/messages/@mediabot/
+https://wit.ai/bhaveshgangani/mediabot/settings
+https://api.slack.com/apps/A39NPLDDF
+*/

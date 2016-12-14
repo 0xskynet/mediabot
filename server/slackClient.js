@@ -12,7 +12,7 @@ function handleOnAuthenticated(rtmStartData) {
 
 function handleOnMessage(message) {
 
-    if (message.text.toLowerCase().includes('frankbot')) {
+    if (message.text.toLowerCase().includes('mediabot')) {
 
         nlp.ask(message.text, (err, res) => {
             if (err) {
